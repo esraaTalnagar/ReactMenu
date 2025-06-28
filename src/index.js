@@ -48,29 +48,31 @@ const pizzaData = [
 ];
   
 function Pizza(props) {
-  if (props.pizzaObj.soldOut) {
-    return null;
-  }
+  // if (props.pizzaObj.soldOut) {
+  //   return null;
+  // }
     return (
-      <li className="pizza">
+      <li className={`pizza ${props.pizzaObj.soldOut ? "sold-out" : ""}`}>
         <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name}></img>
         <div>
           <h3>{props.pizzaObj.name}</h3>
           <p>{props.pizzaObj.ingredients}</p>
-          <span>{props.pizzaObj.price + 3}</span>
+          <span>
+            {props.pizzaObj.soldOut ? "Sold Out" : props.pizzaObj.price}
+          </span>
         </div>
       </li>
     );
 }
 function App(){
     return (
-        <div>
+        <>
             <Headder />
           <div className="container">
             <Menu />
             <Footer />
           </div>
-        </div>
+        </>
     )
 }
 function Headder(){
@@ -82,14 +84,20 @@ function Headder(){
 }
 function Menu(){
   return (
+    <React.Fragment>
     <main className="menu">
       <h2>Our Menu</h2>
+      <p>
+        Authentic Italian cuisine. 6 creative dishes to choose from. All from our stone
+        oven, all organic, all delicious.
+      </p>
       <ul className="pizzas">
         {pizzaData.map((pizza) => (
           <Pizza pizzaObj={pizza} key={pizza.name} />
         ))}
       </ul>
     </main>
+    </React.Fragment>
   );
 }
 function Footer(){
